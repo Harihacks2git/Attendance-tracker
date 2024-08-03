@@ -1,0 +1,7 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `reset_sub`(
+        IN roll INT)
+BEGIN
+        	DELETE FROM subjects where roll_no = roll;
+        END$$
+DELIMITER ;

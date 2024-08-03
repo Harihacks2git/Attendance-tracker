@@ -1,0 +1,9 @@
+
+CREATE PROCEDURE `ins_sub`(
+    IN roll VARCHAR(50),
+    IN sname VARCHAR(50),
+    IN tot INT
+    )
+BEGIN
+    	INSERT INTO subjects(roll_no,subject_name,total_hours) VALUES (roll,sname,tot);
+    END;

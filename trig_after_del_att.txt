@@ -1,0 +1,19 @@
+CREATE TRIGGER `after_attendance_delete` AFTER DELETE ON `attendance`
+ FOR EACH ROW BEGIN
+    DECLARE cont DECIMAL; 
+    DECLARE abs DECIMAL;
+    DECLARE per DECIMAL(10,2);
+    
+    SELECT SUM(hours) INTO abs FROM attendance where subject_id = OLD.subject_id;
+    IF abs is not null THEN
+    SELECT total_hours INTO cont FROM subjects where id = OLD.subject_id;
+    
+    SET per = ((cont - abs)/cont)*100;
+    
+    UPDATE stats
+    SET absent_hours = abs,
+        attendance_percentage = per WHERE subject_id = OLD.subject_id;
+    ELSE
+    update stats set absent_hours = 0,attendance_percentage = 100 where subject_id = OLD.subject_id;
+    END IF;
+END

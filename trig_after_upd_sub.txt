@@ -1,0 +1,12 @@
+CREATE TRIGGER `after_subject_update` AFTER UPDATE ON `subjects`
+ FOR EACH ROW BEGIN
+    DECLARE abs INT;
+    DECLARE cont INT;
+    DECLARE per DECIMAL(10,2);
+    IF OLD.total_hours != NEW.total_hours THEN  
+    SET cont = NEW.total_hours;
+    SELECT absent_hours INTO abs FROM stats where subject_id = NEW.id;
+    SET per = ((cont - abs)/cont)*100;
+    UPDATE stats SET contact_hours = cont,attendance_percentage = per where subject_id = NEW.id;
+    END IF;
+END

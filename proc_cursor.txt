@@ -1,0 +1,37 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `fetch_attendance_data`(IN input_subject_id INT)
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE cur_id INT;
+    DECLARE cur_subject_id INT;
+    DECLARE cur_hours INT;
+    DECLARE cur_date DATE;
+
+    -- Declare the cursor to fetch data for the specified subject_id
+    DECLARE cur CURSOR FOR 
+        SELECT id, subject_id, hours, date 
+        FROM attendance
+        WHERE subject_id = input_subject_id;
+
+    -- Declare a handler to set the done variable to 1 when the cursor reaches the end of the result set
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    -- Open the cursor
+    OPEN cur;
+
+    -- Loop to fetch each row from the cursor
+    read_loop: LOOP
+        FETCH cur INTO cur_id, cur_subject_id, cur_hours, cur_date;
+        
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        -- Directly select the fetched data
+        SELECT cur_id AS id, cur_subject_id AS subject_id, cur_hours AS hours, cur_date AS date;
+    END LOOP;
+
+    -- Close the cursor
+    CLOSE cur;
+END$$
+DELIMITER ;

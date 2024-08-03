@@ -1,0 +1,7 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_att`(
+        IN aid INT)
+BEGIN 
+        DELETE FROM attendance where id = aid; 
+        END$$
+DELIMITER ;

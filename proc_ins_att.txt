@@ -1,0 +1,9 @@
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ins_att`(
+        IN sid INT,
+        IN d DATE,
+        IN hrs INt
+        )
+BEGIN
+        	INSERT INTO attendance(subject_id,date,hours) VALUES (sid,d,hrs);
+        END;

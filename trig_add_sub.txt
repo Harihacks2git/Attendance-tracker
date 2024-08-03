@@ -1,0 +1,5 @@
+CREATE TRIGGER `after_subject_insert` AFTER INSERT ON `subjects`
+ FOR EACH ROW BEGIN
+    INSERT INTO stats (roll_no, subject_id, contact_hours, absent_hours, attendance_percentage)
+    VALUES (NEW.roll_no, NEW.id, NEW.total_hours, 0, 100);
+END

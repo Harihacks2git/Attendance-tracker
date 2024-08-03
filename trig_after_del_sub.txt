@@ -1,0 +1,8 @@
+CREATE TRIGGER `before_subject_delete` BEFORE DELETE ON `subjects`
+ FOR EACH ROW BEGIN
+    -- Delete associated attendance records
+    DELETE FROM attendance WHERE subject_id = OLD.id;
+
+    -- Delete corresponding stats entry
+    DELETE FROM stats WHERE subject_id = OLD.id AND roll_no = OLD.roll_no;
+END

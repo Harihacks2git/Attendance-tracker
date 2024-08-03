@@ -1,0 +1,6 @@
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `del_sub`(
+        IN sid INT)
+BEGIN 
+        DELETE FROM subjects where id = sid; 
+        END;

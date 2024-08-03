@@ -1,0 +1,15 @@
+CREATE TRIGGER `after_attendance_insert` AFTER INSERT ON `attendance`
+ FOR EACH ROW BEGIN
+    DECLARE cont DECIMAL;
+    DECLARE abs DECIMAL;
+    DECLARE per DECIMAL(10,2);
+
+    SELECT SUM(hours) INTO abs FROM attendance where subject_id = NEW.subject_id;
+
+    SELECT total_hours INTO cont FROM subjects where id = NEW.subject_id;
+
+    SET per = ((cont - abs)/cont)*100;
+    UPDATE stats
+    SET absent_hours = abs,
+        attendance_percentage = per WHERE subject_id = NEW.subject_id;
+END
