@@ -21,14 +21,15 @@
     $_SESSION['otp'] = $otp;
     $_SESSION['expiry'] = $expiry;
     $_SESSION['otp_email'] = $email;
-
+    
+    $config = parse_ini_file(__DIR__."/config.ini",true);
     $mail = new PHPMailer(true);
     try{
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'vanced7279@gmail.com';
-        $mail->Password = 'htecsxxpxsjhxavq';
+        $mail->Username = $config['mid'];
+        $mail->Password = $config['mpass'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
         $mail->SMTPDebug = 3;
