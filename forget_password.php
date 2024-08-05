@@ -55,7 +55,7 @@
         <h2>PASSSWORD RESET</h2>
         <form id="loginForm" action="reset_password.php" method="POST">
             <div>
-                <label for="email">Email</label>
+                <label for="email">Registered Email</label>
                 <input type="text" id="email" name="email" class="in" required>
             </div>
             <div class="buttonsubmit">

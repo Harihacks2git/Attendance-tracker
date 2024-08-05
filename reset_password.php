@@ -34,19 +34,18 @@
         $mail->Port = 587;
         $mail->SMTPDebug = 3;
 
-        $mail->setFrom('vanced7279@gmail.com','Checkmate');
+        $mail->setFrom($config['mid'],'Checkmate');
         $mail->addAddress($email);
 
         $mail->isHTML(true);
-        $mail->Subject = 'Password Reset Request';
+        $mail->Subject = 'Checkmate login credentials Reset Request';
         $mail->Body = "Hi<br><br>The OTP to reset your Checkmate password is : <br><br>
                        <h1>$otp</h1><br><br>
                        This link will expire in 30 minutes!.";
         $mail->send();
 
-        session_start();
+        $_SESSION['error'] = "OTP has been sent to your mail: ".$email.",Kindly check it!";
         header("Location: otp_verify.php");
-        exit();
     }
     catch(Exception $e)
     {

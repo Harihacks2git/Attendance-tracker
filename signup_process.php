@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result2 = $conn->query($sql2);
     if($result2->num_rows > 0)
     {
-        $_SESSION['error'] = "Email $email already exits!";
+        $_SESSION['error'] = "Email". $email." already exits for the roll no ".$roll_no."!";
         header("Location: signup.php");
         exit();
     }
@@ -47,7 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['expiry'] = $expiry;
     $_SESSION['otp_email'] = $email;
 
-
+    
+    $config = parse_ini_file(__DIR__."/config.ini",true);
     require 'libs/PHPMailer/src/Exception.php';
     require 'libs/PHPMailer/src/PHPMailer.php';
     require 'libs/PHPMailer/src/SMTP.php';
@@ -60,13 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'vanced7279@gmail.com';
-    $mail->Password = 'htecsxxpxsjhxavq';
+    $mail->Username = $config['mid'];
+    $mail->Password = $config['mpass'];
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
     $mail->SMTPDebug = 3;
 
-    $mail->setFrom('vanced7279@gmail.com','Checkmate');
+    $mail->setFrom($config['mid'],'Checkmate');
     $mail->addAddress($email);
 
     $mail->isHTML(true);
@@ -81,13 +82,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     //Store data in session to use in password setting page
     session_start();
+    $_SESSION['error'] = "OTP has been sent to your mail: ".$email.",Kindly check it!";
     $_SESSION['roll_no'] = $roll_no;
     $_SESSION['name'] = $name;
     $_SESSION['phone_no'] = $phone_no;
     $_SESSION['email'] = $email;
     $_SESSION['department'] = $department;
     $_SESSION['semester'] = $semester;
-    $_SESSION['error'] = "OTP has been sent to your email '$email'.Kindly check it!";
     header("Location: otp_verify.php");
     //header("Location: password.php");
     exit();
