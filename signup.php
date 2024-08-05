@@ -1,3 +1,14 @@
+<?php
+    session_start();
+    if(isset($_SESSION['error']))
+    {
+        $errmsg = $_SESSION['error'];
+        unset($_SESSION["error"]); 
+        echo "<script>
+                alert('{$errmsg}');
+              </script>";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

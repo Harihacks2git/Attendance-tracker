@@ -1,14 +1,3 @@
-<?php
-    session_start();
-    if(isset($_SESSION['error']))
-    {
-        $errmsg = $_SESSION['error'];
-        unset($_SESSION["error"]); 
-        echo "<script>
-                alert('{$errmsg}');
-              </script>";
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,21 +52,14 @@
 </head>
 <body class="main">
     <div class="container">
-        <h2>STUDENT PROFILE LOGIN</h2>
-        <form id="loginForm" action="login.php" method="POST">
+        <h2>PASSSWORD RESET</h2>
+        <form id="loginForm" action="reset_password.php" method="POST">
             <div>
-                <label for="rollNo">Roll Number:</label>
-                <input type="text" id="rollNo" name="roll_no" class="in" required>
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" class="in" required>
             </div>
             <div class="buttonsubmit">
-                <button type="submit">Login</button>
-                <button type="button" onclick="location.href='signup.php'">Sign up</button>
-                <br>
-                <a href = "forget_password.php">Forget password?</a>
+                <button type="submit">RESET</button>
             </div>
         </form>
     </div>
