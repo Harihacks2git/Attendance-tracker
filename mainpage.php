@@ -161,6 +161,27 @@ $roll_no = $_SESSION['roll_no'];
                  scrollbar-width: thin; /* Use 'thin' for scrollbar width */
                 scrollbar-color: transparent transparent;
         }
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .popup-buttons {
+            display: flex;
+            justify-content: space-around;
+        }
     </style>
 </head>
 <body>
@@ -191,7 +212,7 @@ $roll_no = $_SESSION['roll_no'];
                         echo "<div>
                                 <button class='clickbutton' onclick=\"location.href='template.php?subject_id={$row['id']}'\">{$row['subject_name']} ({$row['total_hours']} hrs)</button>
                                <div class='div-button'> <button class='edit-button' onclick=\"location.href='edit_subject.php?subject_id={$row['id']}&subject_name={$row['subject_name']}&total_hours={$row['total_hours']}'\">&#9998;</button>
-                                <button class='del-button' onclick=\"location.href='delete_subject.php?subject_id={$row['id']}&subject_name={$row['subject_name']}&total_hours={$row['total_hours']}'\">&#x1F5D1;</button></div>
+                                <button class='del-button' onclick=\"showPopup('{$row['id']}')\">&#x1F5D1;</button></div>
                               </div>";
                     }
                 } else {
@@ -203,5 +224,33 @@ $roll_no = $_SESSION['roll_no'];
             </div>
         </div>
     </div>
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <h3>Are you sure you want to delete this subject?</h3>
+            <div class="popup-buttons">
+                <button type="button" onclick="confirmDelete()">OK</button>
+                <button type="button" onclick="closePopup()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <form id="delete-form" action="delete_subject.php" method="GET" style="display: none;">
+        <input type="hidden" name="subject_id" id="delete-subject-id">
+    </form>
+
+    <script>
+        function showPopup(subjectId) {
+            document.getElementById('delete-subject-id').value = subjectId;
+            document.getElementById('popup-overlay').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('popup-overlay').style.display = 'none';
+        }
+
+        function confirmDelete() {
+            document.getElementById('delete-form').submit();
+        }
+    </script>
 </body>
 </html>
