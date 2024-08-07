@@ -1,0 +1,1 @@
+This a a sample message to ensure the usage of without trigger branch
