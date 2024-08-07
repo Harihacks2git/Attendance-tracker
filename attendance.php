@@ -46,11 +46,7 @@ $roll_no = $_SESSION['roll_no'];
             <p id = 'attendance_percentage'></p>
             <div class="attendance-list">
                 <?php
-                $conn = new mysqli('localhost', 'root', '', 'checkmate');
-
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+                include ('dbconnect.php');
                 $s = "SELECT absent_hours,attendance_percentage FROM stats where subject_id = $subject_id";
                 $res = $conn->query($s);
                 $r = $res->fetch_assoc();

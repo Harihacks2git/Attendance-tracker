@@ -10,11 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $_POST['date'];
     $hours = $_POST['hours'];
 
-    $conn = new mysqli('localhost', 'root', '', 'checkmate');
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include ('dbconnect.php');
 
     $sql = "INSERT INTO attendance(subject_id,date,hours) VALUES ($subject_id,$date,$hours);";
 

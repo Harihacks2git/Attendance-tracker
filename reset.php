@@ -7,10 +7,7 @@ if (!isset($_SESSION['roll_no'])) {
 
 $roll_no = $_SESSION['roll_no'];
 
-$conn = new mysqli('localhost', 'root', '', 'checkmate');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include ('dbconnect.php');
 
 $sql = "DELETE FROM attendance WHERE roll_no = '$roll_no'";
 if ($conn->query($sql) === TRUE) {

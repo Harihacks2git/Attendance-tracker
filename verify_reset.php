@@ -10,11 +10,7 @@
     {
         $roll_no = $_SESSION['roll_no'];
         $pass = $_POST['password'];
-        $conn = new mysqli('localhost','root','','checkmate');
-        if($conn->connect_error)
-        {
-            die('Could not connect database'. $conn->connect_error);
-        }
+        include ('dbconnect.php');
         $s = "SELECT password FROM students where roll_no = $roll_no";
         $result = $conn->query($s);
         if($result->num_rows > 0)

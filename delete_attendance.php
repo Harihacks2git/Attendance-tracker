@@ -11,9 +11,7 @@ if (isset($_GET['attendance_id']) && isset($_GET['subject_id'])) {
 
     $conn = new mysqli('localhost', 'root', '', 'checkmate');
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include ('dbconnect.php');
 
     $sql = "DELETE FROM attendance where id = $attendance_id; ";
 

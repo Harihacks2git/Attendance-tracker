@@ -17,10 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $department = $_POST['department'];
     $semester = $_POST['semester'];
 
-    $conn = new mysqli('localhost','root','','checkmate');
-    if ($conn->connect_error) {
-        die('Error connecting to database'. $conn->connect_error);
-    }
+    include ('dbconnect.php');
     $sql2 = "SELECT roll_no,name from students where email = '$email'";
     $result2 = $conn->query($sql2);
     if($result2->num_rows > 0)

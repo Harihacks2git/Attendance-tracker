@@ -9,11 +9,7 @@ if (isset($_GET['subject_id'])) {
     $subject_id = $_GET['subject_id'];
     $roll_no = $_GET['roll_no'];
 
-    $conn = new mysqli('localhost', 'root', '', 'checkmate');
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include ('dbconnect.php');
 
     $sql = " DELETE FROM subjects where id = $subject_id;";
 

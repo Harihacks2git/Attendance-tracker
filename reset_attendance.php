@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subject_id = $_POST['subject_id'];
 
     require 'database.php';
-    $conn = connectDB();
+    include ('dbconnect.php');
 
     $sql = "DELETE FROM attendance WHERE subject_id = ?";
     $stmt = $conn->prepare($sql);

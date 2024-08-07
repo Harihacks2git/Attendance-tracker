@@ -4,12 +4,7 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $roll_no = $_POST['roll_no'];
     $password = $_POST['password'];
-
-    $conn = new mysqli('localhost', 'root', '', 'checkmate');
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include ('dbconnect.php');
 
     $sql = "SELECT password FROM students WHERE roll_no = '$roll_no'";
     $result = $conn->query($sql);

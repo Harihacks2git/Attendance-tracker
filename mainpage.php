@@ -198,11 +198,7 @@ $roll_no = $_SESSION['roll_no'];
             <div  class="contain-click">
             <div class="clickbuttons">
                 <?php
-                $conn = new mysqli('localhost', 'root', '', 'checkmate');
-
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+                include ('dbconnect.php');
 
                 $sql = "SELECT roll_no,id, subject_name, total_hours FROM subjects WHERE roll_no = '$roll_no'";
                 $result = $conn->query($sql);

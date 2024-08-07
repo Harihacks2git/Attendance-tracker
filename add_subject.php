@@ -10,12 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subject_name = $_POST['subject_name'];
     $total_hours = $_POST['total_hours'];
 
-    $conn = new mysqli('localhost', 'root', '', 'checkmate');
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
+    include ('dbconnect.php');
+    
     $sql = "INSERT INTO subjects(roll_no,subject_name,total_hours) VALUES ($roll,$subject_name,$total_hours);";
     $sql2 = "    INSERT INTO stats (roll_no,contact_hours, absent_hours, attendance_percentage)
     VALUES ($roll_no,$total_hours, 0,100 ";
