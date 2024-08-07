@@ -23,7 +23,7 @@ if (isset($_GET['subject_id'])) {
     {
         if ($conn->query($sql) === TRUE) 
         {
-            
+            header("Location: mainpage.php");  
         } else {
             echo "Error: " . $conn->error;
         }
