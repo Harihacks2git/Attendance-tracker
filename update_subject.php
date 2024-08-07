@@ -36,6 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             {
                 header("Location: mainpage.php");
             }
+            else
+            {
+                echo "Error: " . $update_stats . "<br>" . $conn->error;  
+            }
         }
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

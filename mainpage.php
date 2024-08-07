@@ -204,7 +204,7 @@ $roll_no = $_SESSION['roll_no'];
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-                $sql = "SELECT id, subject_name, total_hours FROM subjects WHERE roll_no = '$roll_no'";
+                $sql = "SELECT roll_no,id, subject_name, total_hours FROM subjects WHERE roll_no = '$roll_no'";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -212,7 +212,7 @@ $roll_no = $_SESSION['roll_no'];
                         echo "<div>
                                 <button class='clickbutton' onclick=\"location.href='template.php?subject_id={$row['id']}'\">{$row['subject_name']} ({$row['total_hours']} hrs)</button>
                                <div class='div-button'> <button class='edit-button' onclick=\"location.href='edit_subject.php?subject_id={$row['id']}&subject_name={$row['subject_name']}&total_hours={$row['total_hours']}'\">&#9998;</button>
-                                <button class='del-button' onclick=\"showPopup('{$row['id']}')\">&#x1F5D1;</button></div>
+                                <button class='del-button' onclick=\"showPopup('{$row['id']}','{$row['roll_no']}')\">&#x1F5D1;</button></div>
                               </div>";
                     }
                 } else {
@@ -236,12 +236,15 @@ $roll_no = $_SESSION['roll_no'];
 
     <form id="delete-form" action="delete_subject.php" method="GET" style="display: none;">
         <input type="hidden" name="subject_id" id="delete-subject-id">
+        <input type="hidden" name ="roll_no" id = "roll-no-id">
     </form>
 
     <script>
-        function showPopup(subjectId) {
+        function showPopup(subjectId,roll_no) {
             document.getElementById('delete-subject-id').value = subjectId;
+            document.getElementById('roll-no-id').value=roll_no;
             document.getElementById('popup-overlay').style.display = 'flex';
+            document.getElementById('roll-no-id').value=roll_no;
         }
 
         function closePopup() {

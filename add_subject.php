@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql) === TRUE && $conn->query($sql2)) {
         header("Location: mainpage.php");
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $sql ."\n".$sql2. "<br>" . $conn->error;
     }
 
     $conn->close();
