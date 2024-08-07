@@ -16,9 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "call ins_sub('$roll_no','$subject_name','$total_hours');";
-
-    if ($conn->query($sql) === TRUE) {
+    $sql = "INSERT INTO subjects(roll_no,subject_name,total_hours) VALUES ($roll,$subject_name,$total_hours);";
+    $sql2 = "    INSERT INTO stats (roll_no,contact_hours, absent_hours, attendance_percentage)
+    VALUES ($roll_no,$total_hours, 0,100 ";
+    if ($conn->query($sql) === TRUE && $conn->query($sql2)) {
         header("Location: mainpage.php");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

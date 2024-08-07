@@ -14,7 +14,7 @@ if (isset($_GET['subject_id'])) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "call del_sub($subject_id);";
+    $sql = " DELETE FROM subjects where id = $subject_id;";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: mainpage.php");

@@ -19,7 +19,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "UPDATE subjects SET subject_name = '$subject_name', total_hours = $total_hours WHERE id = $subject_id";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: mainpage.php");
+        $sel_old = "SELECT total_hours from subjects where id = $subject_id";
+        $res = $conn->query($sel_old);
+        $row =$res->fetch_assoc(); 
+        $old_hours = $row['total_hours'];    
+        if($old_hours != $total_hours)
+        {
+            $new_hours = $total_hours;
+            $sel_stat_abs = "SELECT absent_hours from stats where subject_id = $subject_id";
+            $res = $conn->query($sel_stat_abs);
+            $row = $res->fetch_assoc();
+            $abs = $row['absent_hours'];
+            $percentage = ((float)($new_hours-$abs)/$new_hours)*100;
+            $update_stats = "UPDATE stats SET contact_hours = $new_hours,attendance_percentage = $percentage where subject_id = $subject_id";
+            if($conn->query($update_stats) == TRUE)
+            {
+                header("Location: mainpage.php");
+            }
+        }
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
