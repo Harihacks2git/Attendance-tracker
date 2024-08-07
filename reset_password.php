@@ -15,7 +15,7 @@
         die('Invalid email address');
     }
 
-    $isemailexist = "SELECT email from students where email = $email";
+    $isemailexist = "SELECT email from students where email = '$email'";
     $res = $conn->query($isemailexist);
     if($res->num_rows>0)
     {
