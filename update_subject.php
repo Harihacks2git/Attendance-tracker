@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 if (!isset($_SESSION['roll_no'])) {
     header("Location: index.php");
@@ -13,18 +16,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include ('dbconnect.php');
 
     $sql = "UPDATE subjects SET subject_name = '$subject_name', total_hours = $total_hours WHERE id = $subject_id";
-
+    $sel_old = "SELECT total_hours from subjects where id = $subject_id";
+    if ($conn->query($sel_old) === FALSE) {
+        echo "Error in query: " . $conn->error;
+    }
+    $res = $conn->query($sel_old);
+    $row =$res->fetch_assoc(); 
+    $old_hours = $row['total_hours'];   
     if ($conn->query($sql) === TRUE) {
-        $sel_old = "SELECT total_hours from subjects where id = $subject_id";
-        $res = $conn->query($sel_old);
-        $row =$res->fetch_assoc(); 
-        $old_hours = $row['total_hours'];    
         if($old_hours != $total_hours)
         {
+            $percentage = 0.00;
             $new_hours = $total_hours;
             $sel_stat_abs = "SELECT absent_hours from stats where subject_id = $subject_id";
             $res = $conn->query($sel_stat_abs);
-            $row = $res->fetch_assoc();
+            $row = $res->fetch_assoc(); 
             $abs = $row['absent_hours'];
             $percentage = ((float)($new_hours-$abs)/$new_hours)*100;
             $update_stats = "UPDATE stats SET contact_hours = $new_hours,attendance_percentage = $percentage where subject_id = $subject_id";
@@ -34,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             else
             {
-                echo "Error: " . $update_stats . "<br>" . $conn->error;  
+                echo "Error: ".$update_stats."<br>".$conn->error;  
             }
         }
     } else {
