@@ -9,8 +9,6 @@ if (isset($_GET['attendance_id']) && isset($_GET['subject_id'])) {
     $attendance_id = $_GET['attendance_id'];
     $subject_id = $_GET['subject_id'];
 
-    $conn = new mysqli('localhost', 'root', '', 'checkmate');
-
     include ('dbconnect.php');
 
     $sql = "DELETE FROM attendance where id = $attendance_id; ";

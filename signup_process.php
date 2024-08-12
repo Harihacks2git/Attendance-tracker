@@ -46,9 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
     $config = parse_ini_file(__DIR__."/config.ini",true);
-    require 'libs/PHPMailer/src/Exception.php';
-    require 'libs/PHPMailer/src/PHPMailer.php';
-    require 'libs/PHPMailer/src/SMTP.php';
+    require __DIR__.'/libs/PHPMailer/src/Exception.php';
+    require __DIR__.'/libs/PHPMailer/src/PHPMailer.php';
+    require __DIR__.'/libs/PHPMailer/src/SMTP.php';
 
     $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);//validate the mail
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

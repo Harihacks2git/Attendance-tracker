@@ -6,9 +6,9 @@
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
 
-    require 'libs/PHPMailer/src/Exception.php';
-    require 'libs/PHPMailer/src/PHPMailer.php';
-    require 'libs/PHPMailer/src/SMTP.php';
+    require '/libs/PHPMailer/src/Exception.php';
+    require '/libs/PHPMailer/src/PHPMailer.php';
+    require '/libs/PHPMailer/src/SMTP.php';
 
     $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);//validate the mail
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
